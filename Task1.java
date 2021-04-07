@@ -1,23 +1,22 @@
 public class Task1 {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Task1.class);
-
-    public static void main(String[] args) {
-        final int[] res2 = process(new int[]{1, 2, 3, 4, 5, 6, 7, 8});
-        System.out.println(res2);
-    }
-
-    public static int[] process(int[] arrIn) {
-        int[] backArr = new int[2];
-        if(arrIn.length == 0) {
-            log.info("В массиве нет элементов");
-            return arrIn;
+    public int[] doTask1(int[] arr) throws RuntimeException {
+        int[] res = null;
+        int i = arr.length - 1;
+        int j = 0;
+        boolean found = false;
+        while (i >= 0 && !found) {
+            found = arr[i] == 4;
+            j = i;
+            i--;
         }
-        for (int i = arrIn.length - 3; i >= 0 ; i--) {
-            if(arrIn[i] == 4) {
-                System.arraycopy(arrIn, (i+1), backArr,0,2);
-                return backArr;
+        if(found) {
+            res = new int[arr.length - j - 1];
+            for (i = j + 1; i < arr.length; i++) {
+                res[i - j - 1] = arr[i];
             }
+        } else {
+            throw new RuntimeException("Array have no 4");
         }
-        throw new RuntimeException("В массиве нет ни одной 4-ки после которой были бы числа");
+        return  res;
     }
 }
